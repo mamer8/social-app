@@ -71,6 +71,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (BuildContext context) => AppCubit()
               ..getUserData()
+              ..getMyPosts()
               ..getPosts(),
           ),
           BlocProvider(

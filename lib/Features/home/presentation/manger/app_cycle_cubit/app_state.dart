@@ -71,6 +71,20 @@ class AppGetPostsSuccessState extends AppStates {
   AppGetPostsSuccessState(this.postModel);
 }
 
+class AppGetMyPostsLoadingState extends AppStates {}
+
+class AppGetMyPostsSuccessState extends AppStates {
+  final List<PostModel> postModel;
+
+  AppGetMyPostsSuccessState(this.postModel);
+}
+
+class AppGetMyPostsErrorState extends AppStates {
+  final String error;
+
+  AppGetMyPostsErrorState(this.error);
+}
+
 class AppGetPostsErrorState extends AppStates {
   final String error;
 

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:socialapp/core/utils/language/strings.dart';
 
 import '../../../../../core/utils/constants.dart';
 import '../../../../../core/utils/styles/color_manager.dart';
@@ -9,7 +10,8 @@ class ButtonsSection extends StatelessWidget {
   final void Function()? likeOnTap;
 
   const ButtonsSection({
-    Key? key,  this.likeOnTap,
+    Key? key,
+    this.likeOnTap,
   }) : super(key: key);
 
   @override
@@ -20,10 +22,12 @@ class ButtonsSection extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children:  [
-          CustomActionButton(like1Comment2Share3: 1,onTap: likeOnTap),
+        children: [
+          CustomActionButton(like1Comment2Share3: 1, onTap: likeOnTap),
           CustomActionButton(like1Comment2Share3: 2),
-          CustomActionButton(like1Comment2Share3: 3,),
+          CustomActionButton(
+            like1Comment2Share3: 3,
+          ),
         ],
       ),
     );
@@ -58,10 +62,10 @@ class CustomActionButton extends StatelessWidget {
           ),
           Text(
             like1Comment2Share3 == 1
-                ? 'Like'
+                ? sLike(context)
                 : like1Comment2Share3 == 2
-                    ? 'Comment'
-                    : 'Share',
+                    ? sComment(context)
+                    : sShare(context),
             style: getRegularStyle(fontSize: 18, color: ColorManager.lightGrey),
           ),
         ],

@@ -42,16 +42,20 @@ class NewPostView extends StatelessWidget {
       return Scaffold(
         appBar: buildAppBar(context, () {
           final now = DateTime.now().toString();
-          if (AppCubit.get(context).postImage == null) {
-            AppCubit.get(context)
-                .createPost(text: textController.text, date: now);
+          if (textController.text.isNotEmpty) {
+            if (AppCubit.get(context).postImage == null) {
+              AppCubit.get(context)
+                  .createPost(text: textController.text, date: now);
+            } else {
+              AppCubit.get(context)
+                  .uploadPostImage(text: textController.text, date: now);
+            }
+            AppCubit.get(context).postImage = null;
+            AppCubit.get(context).getPosts();
+            Navigator.pop(context);
           } else {
-            AppCubit.get(context)
-                .uploadPostImage(text: textController.text, date: now);
+            showToast(msg: 'Write something please', state: ToastStates.error);
           }
-          AppCubit.get(context).postImage = null;
-          AppCubit.get(context).getPosts();
-          Navigator.pop(context);
         }),
         floatingActionButton: const CustomFAB(),
         body: ConditionalBuilder(
@@ -78,8 +82,8 @@ class NewPostView extends StatelessWidget {
                             ),
                           ),
                           Expanded(
-                            child: CustomPostField(
-                                textController: textController),
+                            child:
+                                CustomPostField(textController: textController),
                           ),
                         ],
                       ),
@@ -134,8 +138,8 @@ class CustomPostField extends StatelessWidget {
         controller: textController,
         maxLines: 9,
         minLines: 1,
-        decoration:  InputDecoration(
-            hintText:sWhatInMind(context),
+        decoration: InputDecoration(
+            hintText: sWhatInMind(context),
             focusedBorder: InputBorder.none,
             enabledBorder: InputBorder.none),
         autofocus: true,

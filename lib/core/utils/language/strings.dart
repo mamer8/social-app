@@ -24,8 +24,21 @@ String sNotificationsPage(BuildContext context) {
 String sPostPage(BuildContext context) {
   return getLang(context, 'postPage');
 }
+
 String sLanguageMessage(BuildContext context) {
   return getLang(context, 'changeLanguage');
+}
+
+String sLanguageChange(BuildContext context) {
+  return getLang(context, 'changeLanguageTo');
+}
+
+String sLogOut(BuildContext context) {
+  return getLang(context, 'logOut');
+}
+
+String sLogoutMessage(BuildContext context) {
+  return getLang(context, 'logoutMessage');
 }
 
 String sLogin(BuildContext context) {
@@ -70,6 +83,14 @@ String sPassword(BuildContext context) {
 
 String sBio(BuildContext context) {
   return getLang(context, 'bio');
+}
+
+String sShowMore(BuildContext context) {
+  return getLang(context, 'showMore');
+}
+
+String sShowLess(BuildContext context) {
+  return getLang(context, 'showLess');
 }
 
 String sWhatInMind(BuildContext context) {
@@ -118,6 +139,10 @@ String sFollowing(BuildContext context) {
 
 String sAddPhoto(BuildContext context) {
   return getLang(context, 'addPhoto');
+}
+
+String sAddPost(BuildContext context) {
+  return getLang(context, 'addPost');
 }
 
 String sPost(BuildContext context) {

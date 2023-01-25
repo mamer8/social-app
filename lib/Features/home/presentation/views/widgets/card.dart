@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
+import 'package:socialapp/core/utils/language/strings.dart';
 
 import '../../../../../core/utils/assets.dart';
 import '../../../../../core/utils/constants.dart';
@@ -15,6 +16,7 @@ import 'custom_divider.dart';
 class PostWidget extends StatelessWidget {
   final String name;
   final String date;
+  final bool? myPosts;
   final String profileImage;
   String? postImage;
   final String text;
@@ -24,6 +26,7 @@ class PostWidget extends StatelessWidget {
 
   PostWidget({
     Key? key,
+    this.myPosts = false,
     required this.name,
     required this.date,
     required this.profileImage,
@@ -82,8 +85,8 @@ class PostWidget extends StatelessWidget {
                 trimLines: 3,
                 style: getRegularStyle(color: Colors.black, fontSize: 15),
                 trimMode: TrimMode.Line,
-                trimCollapsedText: ' Show more',
-                trimExpandedText: 'Show less',
+                trimCollapsedText: sShowMore(context),
+                trimExpandedText: sShowLess(context),
                 lessStyle: getRegularStyle(color: ColorManager.hint2Grey),
                 moreStyle: getRegularStyle(color: ColorManager.hint2Grey),
               ),
@@ -110,13 +113,13 @@ class PostWidget extends StatelessWidget {
                   CustomTextButton(
                       style: getLightStyle(
                           fontHeight: 1, color: ColorManager.hint2Grey),
-                      text: '$likes Likes',
+                      text: '$likes ${sLikes(context)}',
                       onPressed: () {}),
                   const Spacer(),
                   CustomTextButton(
                       style: getLightStyle(
                           fontHeight: 1, color: ColorManager.hint2Grey),
-                      text: '$comments Comments',
+                      text: '$comments ${sComments(context)}',
                       onPressed: () {}),
                 ],
               ),

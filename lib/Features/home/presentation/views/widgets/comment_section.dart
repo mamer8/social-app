@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:socialapp/core/utils/language/strings.dart';
 
 import '../../../../../core/utils/assets.dart';
 import '../../../../../core/utils/constants.dart';
@@ -29,7 +30,7 @@ class CommentSection extends StatelessWidget {
               decoration: InputDecoration(
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                hintText: 'Write a comment ..',
+                hintText: sWriteComment(context),
                 suffixIcon: IconButton(
                     onPressed: () {}, icon: const Icon(Icons.send_outlined)),
               ),

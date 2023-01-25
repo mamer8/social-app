@@ -47,7 +47,10 @@ class AppCubit extends Cubit<AppStates> {
     currentIndex = index;
     print(currentIndex);
     if (currentIndex == 1) getUserData();
-    if (currentIndex == 2) getUsers();
+    if (currentIndex == 2) {
+      getUsers();
+      getMyPosts();
+    }
     emit(AppNavBarChangeState());
   }
 
@@ -243,6 +246,41 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
+  /// get my posts
+
+  List<PostModel> myposts = [];
+  List<String> mypostsId = [];
+  List<int> mylikes = [];
+
+  void getMyPosts() {
+    myposts = [];
+    mypostsId = [];
+    mylikes = [];
+    emit(AppGetMyPostsLoadingState());
+    FirebaseFirestore.instance
+        .collection('posts')
+        .orderBy('date')
+        .get()
+        .then((value) {
+      // posts.clear();
+
+      for (var element in value.docs) {
+        if (userModel.uId == element.id) {
+          element.reference.collection('likes').get().then((value) {
+            likes.add(value.docs.length);
+          }).catchError((e) {});
+          posts.add(PostModel.fromJson(element.data()));
+          postsId.add(element.id);
+        }
+      }
+
+      print('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk $myposts');
+      emit(AppGetMyPostsSuccessState(myposts));
+    }).catchError((e) {
+      emit(AppGetMyPostsErrorState(e.toString()));
+    });
+  }
+
   /// like post
 
   void likePost(String postId) {
@@ -254,6 +292,7 @@ class AppCubit extends Cubit<AppStates> {
         .set({'like': true})
         .then((value) {})
         .catchError((e) {});
+    //emit(AppLikePostSuccessState());
   }
 
   /// get users
@@ -265,7 +304,9 @@ class AppCubit extends Cubit<AppStates> {
     users.clear();
     FirebaseFirestore.instance.collection('users').get().then((value) {
       for (var element in value.docs) {
-        users.add(UserModel.fromJson(element.data()));
+        if (userModel.uId != element.id) {
+          users.add(UserModel.fromJson(element.data()));
+        }
       }
 
       emit(AppGetUsersSuccessState());

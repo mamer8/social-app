@@ -33,6 +33,10 @@ class HomeViewBody extends StatelessWidget {
   // ScrollController scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
+    void _onRefresh() async {
+      AppCubit.get(context).getPosts();
+    }
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -57,7 +61,7 @@ class HomeViewBody extends StatelessWidget {
         if (isLoading = true) {
           return RefreshIndicator(
             onRefresh: () async {
-              AppCubit.get(context).getPosts();
+              _onRefresh();
             },
             child: SingleChildScrollView(
               // controller: scrollController,
@@ -69,6 +73,7 @@ class HomeViewBody extends StatelessWidget {
                     // const CustomVerificationRow(),
                     ListView.separated(
                         shrinkWrap: true,
+                        reverse: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) => PostWidget(
                             likeOnTap: () {
